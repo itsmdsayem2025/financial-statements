@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BalanceSheetRouteImport } from './routes/balance-sheet'
+import { Route as DisclosuresRouteImport } from './routes/disclosures'
 import { Route as IncomeStatementRouteImport } from './routes/income-statement'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const BalanceSheetRoute = BalanceSheetRouteImport.update({
   path: '/balance-sheet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DisclosuresRoute = DisclosuresRouteImport.update({
+  id: '/disclosures',
+  path: '/disclosures',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IncomeStatementRoute = IncomeStatementRouteImport.update({
   id: '/income-statement',
   path: '/income-statement',
@@ -32,30 +38,34 @@ const IncomeStatementRoute = IncomeStatementRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/balance-sheet': typeof BalanceSheetRoute
+  '/disclosures': typeof DisclosuresRoute
   '/income-statement': typeof IncomeStatementRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/balance-sheet': typeof BalanceSheetRoute
+  '/disclosures': typeof DisclosuresRoute
   '/income-statement': typeof IncomeStatementRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/balance-sheet': typeof BalanceSheetRoute
+  '/disclosures': typeof DisclosuresRoute
   '/income-statement': typeof IncomeStatementRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/balance-sheet' | '/income-statement'
+  fullPaths: '/' | '/balance-sheet' | '/disclosures' | '/income-statement'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/balance-sheet' | '/income-statement'
-  id: '__root__' | '/' | '/balance-sheet' | '/income-statement'
+  to: '/' | '/balance-sheet' | '/disclosures' | '/income-statement'
+  id: '__root__' | '/' | '/balance-sheet' | '/disclosures' | '/income-statement'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BalanceSheetRoute: typeof BalanceSheetRoute
+  DisclosuresRoute: typeof DisclosuresRoute
   IncomeStatementRoute: typeof IncomeStatementRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BalanceSheetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/disclosures': {
+      id: '/disclosures'
+      path: '/disclosures'
+      fullPath: '/disclosures'
+      preLoaderRoute: typeof DisclosuresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/income-statement': {
       id: '/income-statement'
       path: '/income-statement'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BalanceSheetRoute: BalanceSheetRoute,
+  DisclosuresRoute: DisclosuresRoute,
   IncomeStatementRoute: IncomeStatementRoute,
 }
 export const routeTree = rootRouteImport
